@@ -1,26 +1,193 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary-50: hsl(250 97% 95%);
+  --color-primary-100: hsl(250 94% 90%);
+  --color-primary-200: hsl(250 88% 80%);
+  --color-primary-300: hsl(250 78% 65%);
+  --color-primary-400: hsl(250 65% 50%);
+  --color-primary-500: hsl(250 55% 45%);
+  --color-primary-600: hsl(250 48% 40%);
+  --color-primary-700: hsl(250 40% 32%);
+  --color-primary-800: hsl(250 32% 25%);
+  --color-primary-900: hsl(250 24% 18%);
+  --color-primary-950: hsl(250 16% 10%);
+  --color-success: hsl(145 65% 50%);
+  --color-warning: hsl(85 75% 50%);
+  --color-danger: hsl(25 55% 45%);
+  --color-background: hsl(0 0% 99%);
+  --color-foreground: hsl(250 15% 15%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(250 15% 15%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(250 15% 15%);
+  --color-primary: hsl(250 48% 40%);
+  --color-primary-foreground: hsl(0 0% 99%);
+  --color-secondary: hsl(250 10% 96%);
+  --color-secondary-foreground: hsl(250 25% 25%);
+  --color-muted: hsl(250 10% 96%);
+  --color-muted-foreground: hsl(250 10% 50%);
+  --color-accent: hsl(250 10% 96%);
+  --color-accent-foreground: hsl(250 15% 15%);
+  --color-destructive: hsl(25 55% 45%);
+  --color-destructive-foreground: hsl(0 0% 99%);
+  --color-border: hsl(250 10% 92%);
+  --color-input: hsl(250 10% 92%);
+  --color-ring: hsl(250 55% 45%);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  --background: hsl(0 0% 99%);
+  --foreground: hsl(250 15% 15%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(250 15% 15%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(250 15% 15%);
+  --primary: hsl(250 48% 40%);
+  --primary-foreground: hsl(0 0% 99%);
+  --secondary: hsl(250 10% 96%);
+  --secondary-foreground: hsl(250 25% 25%);
+  --muted: hsl(250 10% 96%);
+  --muted-foreground: hsl(250 10% 50%);
+  --accent: hsl(250 10% 96%);
+  --accent-foreground: hsl(250 15% 15%);
+  --destructive: hsl(25 55% 45%);
+  --destructive-foreground: hsl(0 0% 99%);
+  --border: hsl(250 10% 92%);
+  --input: hsl(250 10% 92%);
+  --ring: hsl(250 55% 45%);
+  --radius: 0.75rem;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+  .btn-outline {
+    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+  }
+  .btn-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground;
+  }
+  .btn-danger {
+    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90;
+  }
+  .btn-sm {
+    @apply h-8 px-3 text-xs;
+  }
+  .btn-lg {
+    @apply h-11 px-6 text-base;
+  }
+  .input {
+    @apply flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .card {
+    @apply rounded-xl border bg-card text-card-foreground shadow-sm;
+  }
+  .card-header {
+    @apply flex flex-col gap-1.5 p-6;
+  }
+  .card-title {
+    @apply text-2xl font-semibold leading-none tracking-tight;
+  }
+  .card-description {
+    @apply text-sm text-muted-foreground;
+  }
+  .card-content {
+    @apply p-6 pt-0;
+  }
+  .card-footer {
+    @apply flex items-center p-6 pt-0;
+  }
+  .sidebar-item {
+    @apply flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground;
+  }
+  .sidebar-item.active {
+    @apply bg-accent text-accent-foreground;
+  }
+  .table {
+    @apply w-full caption-bottom text-sm;
+  }
+  .table-header {
+    @apply [&_tr]:border-b;
+  }
+  .table-body {
+    @apply [&_tr:last-child]:border-0;
+  }
+  .table-row {
+    @apply border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted;
+  }
+  .table-cell {
+    @apply p-4 align-middle [&:has([role=checkbox])]:pr-0;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+  .badge-primary {
+    @apply border-transparent bg-primary text-primary-foreground;
+  }
+  .badge-secondary {
+    @apply border-transparent bg-secondary text-secondary-foreground;
+  }
+  .badge-success {
+    @apply border-transparent bg-success text-white;
+  }
+  .badge-warning {
+    @apply border-transparent bg-warning text-black;
+  }
+  .badge-danger {
+    @apply border-transparent bg-danger text-white;
+  }
+  .toast {
+    @apply fixed bottom-4 right-4 z-50 rounded-lg border bg-card p-4 shadow-lg;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: hsl(250 15% 8%);
+    --foreground: hsl(250 10% 95%);
+    --card: hsl(250 15% 12%);
+    --card-foreground: hsl(250 10% 95%);
+    --popover: hsl(250 15% 12%);
+    --popover-foreground: hsl(250 10% 95%);
+    --primary: hsl(250 55% 50%);
+    --primary-foreground: hsl(0 0% 99%);
+    --secondary: hsl(250 15% 18%);
+    --secondary-foreground: hsl(250 10% 95%);
+    --muted: hsl(250 15% 18%);
+    --muted-foreground: hsl(250 10% 65%);
+    --accent: hsl(250 15% 18%);
+    --accent-foreground: hsl(250 10% 95%);
+    --destructive: hsl(25 55% 45%);
+    --destructive-foreground: hsl(0 0% 99%);
+    --border: hsl(250 15% 22%);
+    --input: hsl(250 15% 22%);
+    --ring: hsl(250 55% 50%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* hsl(var) dynamic classes for verification */
+.dynamic-bg { background: hsl(var(--background)); }
+.dynamic-fg { color: hsl(var(--foreground)); }
+.dynamic-card { background: hsl(var(--card)); color: hsl(var(--card-foreground)); }
+.dynamic-primary { background: hsl(var(--primary)); }
+.dynamic-muted { background: hsl(var(--muted)); }
