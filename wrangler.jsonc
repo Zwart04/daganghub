@@ -24,6 +24,54 @@
     {
       "pattern": "daganghub-app.zwart.qzz.io",
       "custom_domain": true
+    },
+    {
+      "pattern": "rosari-commerce-app.zwart.qzz.io",
+      "custom_domain": true
+    },
+    {
+      "pattern": "warungrosari-app.zwart.qzz.io",
+      "custom_domain": true
+    },
+    {
+      "pattern": "waconvert-app.zwart.qzz.io",
+      "custom_domain": true
+    },
+    {
+      "pattern": "wahagenius-crm-app.zwart.qzz.io",
+      "custom_domain": true
+    },
+    {
+      "pattern": "ledger-app.zwart.qzz.io",
+      "custom_domain": true
+    },
+    {
+      "pattern": "ledgerflow-app.zwart.qzz.io",
+      "custom_domain": true
+    },
+    {
+      "pattern": "invensight-app.zwart.qzz.io",
+      "custom_domain": true
+    },
+    {
+      "pattern": "priceforge-app.zwart.qzz.io",
+      "custom_domain": true
+    },
+    {
+      "pattern": "menumaster-app.zwart.qzz.io",
+      "custom_domain": true
+    },
+    {
+      "pattern": "motopart-app.zwart.qzz.io",
+      "custom_domain": true
+    },
+    {
+      "pattern": "attribution-hub-app.zwart.qzz.io",
+      "custom_domain": true
+    },
+    {
+      "pattern": "resi-flow-app.zwart.qzz.io",
+      "custom_domain": true
     }
   ]
 }
