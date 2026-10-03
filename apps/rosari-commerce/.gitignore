@@ -1,0 +1,19 @@
+node_modules
+.next
+.env*.local
+.vercel
+frames/
+
+# Generated output and deployment credentials
+/node_modules/
+/.next/
+/out/
+/.open-next/
+/.wrangler/
+.env*
+!.env.example
+*.tsbuildinfo
+
+.dev.vars*
+
+.dev.vars*

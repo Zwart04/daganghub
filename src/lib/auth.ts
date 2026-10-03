@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
-import type { AuthOptions } from 'next-auth';
+import type { NextAuthConfig } from 'next-auth';
 
-export const authOptions: AuthOptions = {
+export const authOptions: NextAuthConfig = {
   providers: [
     {
       id: 'huggingface',

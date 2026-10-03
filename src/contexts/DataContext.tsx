@@ -1,10 +1,13 @@
 'use client';
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
-import { Product, Order, Customer, JournalEntry, Storefront } from '@/types';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { Product, Order, Customer, JournalEntry, Storefront, User } from '@/types';
 import { getDb, resetDb } from '@/lib/db';
 
 interface DataContextType {
+  users: User[];
+  storefronts: Storefront[];
+  addUser: (user: User) => void;
   products: Product[];
   orders: Order[];
   customers: Customer[];
@@ -16,6 +19,8 @@ interface DataContextType {
   addOrder: (order: Order) => void;
   updateOrderStatus: (id: string, status: Order['status']) => void;
   addCustomer: (customer: Customer) => void;
+  updateCustomer: (id: string, data: Partial<Customer>) => void;
+  deleteCustomer: (id: string) => void;
   addJournalEntry: (entry: JournalEntry) => void;
   updateStorefront: (data: Partial<Storefront>) => void;
 }
@@ -25,6 +30,12 @@ const DataContext = createContext<DataContextType | undefined>(undefined);
 export function DataProvider({ children }: { children: React.ReactNode }) {
   const [db, setDb] = useState(getDb());
 
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    try { const saved = localStorage.getItem('daganghub.data.v1'); if (saved) { const value = JSON.parse(saved, (_key, val) => typeof val === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(val) ? new Date(val) : val); if (['users','products','orders','customers','journalEntries','storefronts'].every(k => Array.isArray(value[k]))) setDb(value); } } catch { /* retain the existing seed if storage is unavailable */ }
+    setLoaded(true);
+  }, []);
+  useEffect(() => { if (loaded) localStorage.setItem('daganghub.data.v1', JSON.stringify(db)); }, [db, loaded]);
   const refresh = useCallback(() => setDb(getDb()), []);
 
   const addProduct = useCallback((product: Product) => {
@@ -56,9 +67,13 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     }));
   }, []);
 
+  const updateCustomer = useCallback((id: string, data: Partial<Customer>) => setDb(prev => ({ ...prev, customers: prev.customers.map(c => c.id === id ? { ...c, ...data } : c) })), []);
+  const deleteCustomer = useCallback((id: string) => setDb(prev => ({ ...prev, customers: prev.customers.filter(c => c.id !== id) })), []);
   const addCustomer = useCallback((customer: Customer) => {
     setDb(prev => ({ ...prev, customers: [...prev.customers, customer] }));
   }, []);
+
+  const addUser = useCallback((user: User) => setDb(prev => ({ ...prev, users: [...prev.users, user] })), []);
 
   const addJournalEntry = useCallback((entry: JournalEntry) => {
     setDb(prev => ({ ...prev, journalEntries: [...prev.journalEntries, entry] }));
@@ -75,6 +90,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <DataContext.Provider value={{
+      users: db.users, storefronts: db.storefronts, addUser,
       products: db.products,
       orders: db.orders,
       customers: db.customers,
@@ -85,7 +101,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       deleteProduct,
       addOrder,
       updateOrderStatus,
-      addCustomer,
+      addCustomer, updateCustomer, deleteCustomer,
       addJournalEntry,
       updateStorefront,
     }}>

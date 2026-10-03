@@ -2,7 +2,7 @@
 
 import { useData } from '@/contexts/DataContext';
 import { useI18n } from '@/contexts/I18nContext';
-import { ShoppingCart, Phone, Store as StoreIcon } from 'lucide-react';
+import { ShoppingCart, Phone, Package, Store as StoreIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 

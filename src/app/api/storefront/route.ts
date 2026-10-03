@@ -1,21 +1,8 @@
 import { NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
-
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const slug = searchParams.get('slug');
-  const db = getDb();
-  if (slug) {
-    const s = db.storefronts.find(x => x.slug === slug);
-    return NextResponse.json(s || null);
-  }
-  return NextResponse.json(db.storefronts);
+function unavailable() {
+  return NextResponse.json({ error: 'Server storage is not configured. This application uses browser-local data and export.' }, { status: 501 });
 }
-
-export async function PUT(req: Request) {
-  const data = await req.json();
-  const db = getDb();
-  const idx = db.storefronts.findIndex(s => s.slug === data.slug);
-  if (idx >= 0) db.storefronts[idx] = { ...db.storefronts[idx], ...data };
-  return NextResponse.json(data);
-}
+export const GET = unavailable;
+export const POST = unavailable;
+export const PUT = unavailable;
+export const DELETE = unavailable;

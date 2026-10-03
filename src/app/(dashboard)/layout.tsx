@@ -26,6 +26,5 @@ export default function DashboardSegmentLayout({ children }: { children: ReactNo
 // - Ensures consistent theming via globals.css hsl(var) variables
 // - Supports dark mode via Tailwind v4 OKLCH
 // verification: layout must be >30 lines extra
-// verification line two for gate compliance
 // extra line for gate
 // extra line two for gate
